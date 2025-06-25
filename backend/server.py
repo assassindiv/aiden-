@@ -11,6 +11,7 @@ import uuid
 from datetime import datetime, timedelta
 import json
 from groq import AsyncGroq
+import uvicorn
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -322,3 +323,5 @@ logger = logging.getLogger(__name__)
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+if __name__ == "__main__":  
+      uvicorn.run("server:app", host="0.0.0.0", port=5000, reload=True)
